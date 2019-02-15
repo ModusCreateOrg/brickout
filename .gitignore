@@ -30,3 +30,10 @@
 *.exe
 *.out
 *.app
+
+creative-engine
+Resources.h
+.idea
+build
+cmake-build-debug
+
