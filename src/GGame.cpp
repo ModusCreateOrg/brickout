@@ -14,7 +14,9 @@ GGame::GGame() {
 #endif
 
 #ifdef __XTENSA__
+#ifdef ENABLE_OPTIONS
   gDisplay.SetBrightness(MAX(MIN_BRIGHTNESS, MAX_BRIGHTNESS * gOptions->brightness));
+#endif
 #endif
 
   // TODO: Jay - this needs to be in BApplication constructor (I think)

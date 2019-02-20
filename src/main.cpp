@@ -4,6 +4,7 @@ BViewPort *gViewPort;
 BGameEngine *gGameEngine;
 GGame *gGame;
 
+// app_main
 extern "C" void app_main() {
   gGame = new GGame();
   gGame->Run();
