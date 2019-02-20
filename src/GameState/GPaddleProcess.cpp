@@ -4,13 +4,17 @@ static const TInt DELTA_X = 4;
 
 GPaddleProcess::GPaddleProcess(BGameEngine *aGameEngine) {
   mSprite = new BSprite(0, PLAYER_SLOT, IMG_PADDLE);
-  mSprite->x = 160;
+  mSprite->x = 160-16;
   mSprite->y = 220;
+  mSprite->w = 32;
+  mSprite->h = 8;
   mSprite->flags |= SFLAG_RENDER;
   aGameEngine->AddSprite(mSprite);
 }
 
 GPaddleProcess::~GPaddleProcess() {
+  mSprite->Remove();
+  delete mSprite;
 }
 
 TBool GPaddleProcess::RunBefore() {
@@ -25,8 +29,8 @@ TBool GPaddleProcess::RunAfter() {
   }
   else if (gControls.IsPressed(JOYRIGHT)) {
     mSprite->x = mSprite->x + DELTA_X;
-    if (mSprite->x > (320-16) ) {
-      mSprite->x = 320-16;
+    if (mSprite->x > (320-32) ) {
+      mSprite->x = 320-32;
     }
   }
   return ETrue;

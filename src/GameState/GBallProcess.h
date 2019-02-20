@@ -5,17 +5,17 @@
 
 class GBallProcess : public BProcess {
 public:
-  GBallProcess(BGameEngine *aGameEngine);
+  GBallProcess(BGameEngine *aGameEngine, TFloat aVelocity = 3.5);
   virtual ~GBallProcess();
 public:
   TBool RunBefore();
   TBool RunAfter();
 public:
   // reposition the ball at start of round
-  void Reset(TFloat aVelocity = 2.5);
+  void Reset(TFloat aVelocity);
 private:
   BSprite *mSprite;
+  TFloat mVelocity;
 };
-
 
 #endif //GENUS_GBALLPROCESS_H

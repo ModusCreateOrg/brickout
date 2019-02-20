@@ -1,10 +1,14 @@
 #include "GBallProcess.h"
 #include <math.h>
 
-GBallProcess::GBallProcess(BGameEngine *aGameEngine) {
-  mSprite = new BSprite(0, PLAYER_SLOT, IMG_BALL);
+GBallProcess::GBallProcess(BGameEngine *aGameEngine, TFloat aVelocity) {
+  this->mVelocity = aVelocity;
+  mSprite = new BSprite(0, COMMON_SLOT, IMG_BALL, STYPE_PBULLET|STYPE_EBULLET);
+  mSprite->cMask = STYPE_ENEMY;
+  mSprite->flags |= SFLAG_RENDER | SFLAG_CHECK;
+  mSprite->w = mSprite->h = 4;
   aGameEngine->AddSprite(mSprite);
-  Reset();
+  Reset(this->mVelocity);
 }
 
 GBallProcess::~GBallProcess() {
@@ -15,9 +19,9 @@ GBallProcess::~GBallProcess() {
 // velocity determines difficulty (speed of ball)
 void GBallProcess::Reset(TFloat aVelocity) {
   mSprite->x = TFloat(SCREEN_WIDTH) / 2 - Random(0, SCREEN_WIDTH / 4);
-  mSprite->y = TFloat(SCREEN_HEIGHT) / 2 - Random(0, SCREEN_HEIGHT / 4);
+  mSprite->y = TFloat(SCREEN_HEIGHT) / 2 + Random(0, SCREEN_HEIGHT / 4);
 
-  TFloat angle = TFloat(Random(0, 180)) * M_PI / 180;
+  TFloat angle = TFloat(Random(45, 135)) * M_PI / 180;
 
   mSprite->vx = cos(angle) * aVelocity;
   mSprite->vy = sin(angle) * aVelocity;
@@ -47,5 +51,9 @@ TBool GBallProcess::RunBefore() {
 }
 
 TBool GBallProcess::RunAfter() {
+  if (mSprite->cType) {
+    mSprite->vy = -mSprite->vy;
+    mSprite->cType = 0;
+  }
   return ETrue;
 }
