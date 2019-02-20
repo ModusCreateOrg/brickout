@@ -1,6 +1,7 @@
 #include "GBlockProcess.h"
 
-GBlockProcess::GBlockProcess(BGameEngine *aGameEngine, TInt aX, TInt aY, TUint16 aImage) {
+GBlockProcess::GBlockProcess(GGameState *aGameState, TInt aX, TInt aY, TUint16 aImage) {
+  mGameState = aGameState;
   mSprite = new BSprite(0, COMMON_SLOT, aImage, STYPE_ENEMY);
   mSprite->x = aX;
   mSprite->y = aY;
@@ -8,7 +9,7 @@ GBlockProcess::GBlockProcess(BGameEngine *aGameEngine, TInt aX, TInt aY, TUint16
   mSprite->cMask = STYPE_PBULLET;
   mSprite->w = 16;
   mSprite->h = 8;
-  aGameEngine->AddSprite(mSprite);
+  aGameState->AddSprite(mSprite);
 }
 
 GBlockProcess::~GBlockProcess() {
@@ -24,6 +25,8 @@ TBool GBlockProcess::RunBefore() {
 
 TBool GBlockProcess::RunAfter() {
   if (mSprite->cType) {
+    TBCD points(1);
+    mGameState->mScore.Add(points);
     mSprite->Remove();
     delete mSprite;
     mSprite = ENull;

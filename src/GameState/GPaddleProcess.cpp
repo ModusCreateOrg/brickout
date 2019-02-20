@@ -2,14 +2,15 @@
 
 static const TInt DELTA_X = 4;
 
-GPaddleProcess::GPaddleProcess(BGameEngine *aGameEngine) {
+GPaddleProcess::GPaddleProcess(GGameState *aGameState) {
+  mGameState = aGameState;
   mSprite = new BSprite(0, PLAYER_SLOT, IMG_PADDLE, STYPE_PLAYER);
   mSprite->w = 32;
   mSprite->h = 9;
   mSprite->flags |= SFLAG_RENDER;
   mSprite->cMask |= STYPE_EBULLET;
   Reset();
-  aGameEngine->AddSprite(mSprite);
+  mGameState->AddSprite(mSprite);
 }
 
 GPaddleProcess::~GPaddleProcess() {
@@ -25,19 +26,20 @@ TBool GPaddleProcess::RunBefore() {
   return ETrue;
 }
 TBool GPaddleProcess::RunAfter() {
-  if (mSprite->cType) {
-    mSprite->cType = 0;
-  }
-  if (gControls.IsPressed(JOYLEFT)) {
-    mSprite->x = mSprite->x - DELTA_X;
-    if (mSprite->x < 0) {
-      mSprite->x = 0;
+  if (mGameState->mLives.mValue > 0) {
+    if (mSprite->cType) {
+      mSprite->cType = 0;
     }
-  }
-  else if (gControls.IsPressed(JOYRIGHT)) {
-    mSprite->x = mSprite->x + DELTA_X;
-    if (mSprite->x > (320-32) ) {
-      mSprite->x = 320-32;
+    if (gControls.IsPressed(JOYLEFT)) {
+      mSprite->x = mSprite->x - DELTA_X;
+      if (mSprite->x < 0) {
+        mSprite->x = 0;
+      }
+    } else if (gControls.IsPressed(JOYRIGHT)) {
+      mSprite->x = mSprite->x + DELTA_X;
+      if (mSprite->x > (320 - 32)) {
+        mSprite->x = 320 - 32;
+      }
     }
   }
   return ETrue;

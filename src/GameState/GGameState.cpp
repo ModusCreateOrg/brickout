@@ -56,17 +56,19 @@ void GGameState::PostRender() {
   score_text[8] = '\0';
   bm->DrawStringShadow(ENull, &score_text[7], mFont16, LIVES_X, LIVES_Y, COLOR_TEXT, COLOR_TEXT_SHADOW, -1, -6);
 
+  if (mLives.mValue <= 0) {
+    bm->DrawStringShadow(ENull, "GAME OVER", mFont16, (320-9*16)/2, 120-8, COLOR_TEXT, COLOR_TEXT_SHADOW);
+    if (gControls.WasPressed(BUTTON_ANY)) {
+      gGame->SetState(GAME_STATE_TITLE);
+    }
+  }
 }
 
 void GGameState::Death() {
   if (mLives.mValue) {
     mLives.mValue --;
   }
-  if (mLives.mValue <= 0) {
-    // game over
-    gGame->SetState(GAME_STATE_TITLE);
-  }
-  else {
+  if (mLives.mValue > 0) {
     mPaddleProcess->Reset();
     AddProcess(new GBallProcess(this));
   }

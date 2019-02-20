@@ -5,13 +5,14 @@
 
 class GBlockProcess : public BProcess {
 public:
-  GBlockProcess(BGameEngine *aGameEngine, TInt aX, TInt aY, TUint16 aImage);
+  GBlockProcess(GGameState *aGameState, TInt aX, TInt aY, TUint16 aImage);
   virtual ~GBlockProcess();
 public:
   TBool RunBefore();
   TBool RunAfter();
 protected:
   BSprite *mSprite;
+  GGameState *mGameState;
 };
 
 #endif //GENUS_GBLOCKPROCESS_H
