@@ -3,15 +3,21 @@
 
 #include "Game.h"
 
+class GPaddleProcess;
+
 class GGameState : public BGameEngine {
 public:
   GGameState();
   ~GGameState();
   void PostRender();
+public:
+  void Death();
 private:
   BFont *mFont8, *mFont16;
+  GPaddleProcess *mPaddleProcess;
 public:
   TBCD mScore;
+  TBCD mLives;
 };
 
 

@@ -3,12 +3,12 @@
 static const TInt DELTA_X = 4;
 
 GPaddleProcess::GPaddleProcess(BGameEngine *aGameEngine) {
-  mSprite = new BSprite(0, PLAYER_SLOT, IMG_PADDLE);
-  mSprite->x = 160-16;
-  mSprite->y = 220;
+  mSprite = new BSprite(0, PLAYER_SLOT, IMG_PADDLE, STYPE_PLAYER);
   mSprite->w = 32;
-  mSprite->h = 8;
+  mSprite->h = 9;
   mSprite->flags |= SFLAG_RENDER;
+  mSprite->cMask |= STYPE_EBULLET;
+  Reset();
   aGameEngine->AddSprite(mSprite);
 }
 
@@ -17,10 +17,17 @@ GPaddleProcess::~GPaddleProcess() {
   delete mSprite;
 }
 
+void GPaddleProcess::Reset() {
+  mSprite->x = 160-16;
+  mSprite->y = 220;
+}
 TBool GPaddleProcess::RunBefore() {
   return ETrue;
 }
 TBool GPaddleProcess::RunAfter() {
+  if (mSprite->cType) {
+    mSprite->cType = 0;
+  }
   if (gControls.IsPressed(JOYLEFT)) {
     mSprite->x = mSprite->x - DELTA_X;
     if (mSprite->x < 0) {

@@ -1,13 +1,29 @@
 #include "GBallProcess.h"
 #include <math.h>
 
-GBallProcess::GBallProcess(BGameEngine *aGameEngine, TFloat aVelocity) {
+#define PI TFloat(M_PI)
+
+class BallSprite : public BSprite {
+public:
+  BallSprite(TInt aPri, TUint16 bm, TUint16 img = 0,
+                             TUint32 aType = STYPE_DEFAULT) : BSprite(aPri, bm, img, aType){
+  }
+  void Collide(BSprite *aOther) {
+    cType |= aOther->type;
+    if (aOther->type == STYPE_PLAYER) {
+      vx = (x - aOther->x -16)/4;
+    }
+  };
+};
+
+GBallProcess::GBallProcess(GGameState *aGameState, TFloat aVelocity) {
+  this->mGameState = aGameState;
   this->mVelocity = aVelocity;
-  mSprite = new BSprite(0, COMMON_SLOT, IMG_BALL, STYPE_PBULLET|STYPE_EBULLET);
-  mSprite->cMask = STYPE_ENEMY;
+  mSprite = new BallSprite(0, COMMON_SLOT, IMG_BALL, STYPE_PBULLET|STYPE_EBULLET);
+  mSprite->cMask = STYPE_ENEMY | STYPE_PLAYER;
   mSprite->flags |= SFLAG_RENDER | SFLAG_CHECK;
   mSprite->w = mSprite->h = 4;
-  aGameEngine->AddSprite(mSprite);
+  aGameState->AddSprite(mSprite);
   Reset(this->mVelocity);
 }
 
@@ -18,10 +34,10 @@ GBallProcess::~GBallProcess() {
 
 // velocity determines difficulty (speed of ball)
 void GBallProcess::Reset(TFloat aVelocity) {
-  mSprite->x = TFloat(SCREEN_WIDTH) / 2 - Random(0, SCREEN_WIDTH / 4);
-  mSprite->y = TFloat(SCREEN_HEIGHT) / 2 + Random(0, SCREEN_HEIGHT / 4);
+  mSprite->x = TFloat(SCREEN_WIDTH) / 2;
+  mSprite->y = TFloat(SCREEN_HEIGHT) / 2;
 
-  TFloat angle = TFloat(Random(45, 135)) * M_PI / 180;
+  TFloat angle = Random(45, 135) * PI / 180;
 
   mSprite->vx = cos(angle) * aVelocity;
   mSprite->vy = sin(angle) * aVelocity;
@@ -31,6 +47,7 @@ void GBallProcess::Reset(TFloat aVelocity) {
 TBool GBallProcess::RunBefore() {
   const TFloat newX = mSprite->x + mSprite->vx,
                newY = mSprite->y + mSprite->vy;
+
   if (newX < 0) {
     mSprite->x = 0;
     mSprite->vx = -mSprite->vx;
@@ -43,17 +60,22 @@ TBool GBallProcess::RunBefore() {
     mSprite->y = 0;
     mSprite->vy = -mSprite->vy;
   }
-  if (newY > (SCREEN_HEIGHT - 4)) {
-    mSprite->y = (SCREEN_HEIGHT - 4);
-    mSprite->vy = -mSprite->vy;
-  }
   return ETrue;
 }
 
 TBool GBallProcess::RunAfter() {
-  if (mSprite->cType) {
+  if (mSprite->cType & STYPE_PLAYER) {
+    mSprite->y -= 4;
     mSprite->vy = -mSprite->vy;
-    mSprite->cType = 0;
+    mSprite->cType &= ~STYPE_PLAYER;
+  }
+  else if (mSprite->cType & STYPE_ENEMY) {
+    mSprite->vy = -mSprite->vy;
+    mSprite->cType &= ~STYPE_ENEMY;
+  }
+  if (mSprite->y > SCREEN_HEIGHT) {
+    mGameState->Death();
+    return EFalse;
   }
   return ETrue;
 }

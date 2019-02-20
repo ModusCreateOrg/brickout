@@ -5,7 +5,7 @@
 
 class GBallProcess : public BProcess {
 public:
-  GBallProcess(BGameEngine *aGameEngine, TFloat aVelocity = 3.5);
+  GBallProcess(GGameState *aGameState, TFloat aVelocity = 3.5);
   virtual ~GBallProcess();
 public:
   TBool RunBefore();
@@ -16,6 +16,7 @@ public:
 private:
   BSprite *mSprite;
   TFloat mVelocity;
+  GGameState *mGameState;
 };
 
 #endif //GENUS_GBALLPROCESS_H

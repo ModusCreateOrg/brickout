@@ -8,6 +8,8 @@ public:
   GPaddleProcess(BGameEngine *aGameEngine);
   ~GPaddleProcess();
 public:
+  void Reset();
+public:
   TBool RunBefore();
   TBool RunAfter();
 protected:
