@@ -5,6 +5,9 @@
 #include "GBallProcess.h"
 #include "GBrickProcess.h"
 
+const TInt LEVEL_X = 8;
+const TInt LEVEL_Y = 2;
+
 const TInt SCORE_X = 120;
 const TInt SCORE_Y = 2;
 
@@ -20,14 +23,11 @@ GGameState::GGameState() : BGameEngine(gViewPort) {
   BBitmap *b = gResourceManager.GetBitmap(PLAYER_SLOT);
   printf("transparent = %d\n", b->TransparentColor());
   AddProcess(this->mPaddleProcess = new GPaddleProcess(this));
-  AddProcess(new GBallProcess(this));
-  for (TUint16 row = 0; row < 11; row++) {
-    for (TUint16 col = 0; col < 20; col++) {
-      AddProcess(new GBrickProcess(this, col * 16, 24 + row * 8, TUint16((row % 5) + 0)));
-    }
-  }
+  AddProcess(mBallProcess = new GBallProcess(this));
   mScore.mValue = 0;
+  mLevel.mValue = 1;
   mLives.mValue = 3;
+  Reset();
 }
 
 GGameState::~GGameState() {
@@ -35,26 +35,47 @@ GGameState::~GGameState() {
   gResourceManager.ReleaseBitmapSlot(COMMON_SLOT);
   delete mFont16;
   delete mFont8;
-  // delete mPlayfield;
+}
+
+void GGameState::Reset() {
+  if (mBallProcess) {
+    mBallProcess->Reset();
+  }
+  for (TUint16 row = 0; row < 11; row++) {
+    for (TUint16 col = 0; col < 20; col++) {
+      AddProcess(new GBrickProcess(this, col * 16, 24 + row * 8, TUint16((row % 5) + 0)));
+    }
+  }
 }
 
 void GGameState::PostRender() {
   BBitmap *bm = gDisplay.renderBitmap;
-  char    score_text[12];
+  char    text[12];
+
+  for (TInt i   = 0; i < 8; i++) {
+    TInt v = (mLevel.mValue >> ((7 - i) * 4)) & 0x0f;
+    text[i] = '0' + char(v);
+    if (text[i] == '0') {
+      text[i] = ' ';
+    }
+  }
+  text[8] = '\0';
+  text[5] = 'L';
+  bm->DrawStringShadow(ENull, &text[5], mFont16, LEVEL_X, LEVEL_Y, COLOR_TEXT, COLOR_TEXT_SHADOW, -1, -6);
 
   for (TInt i   = 0; i < 8; i++) {
     TInt v = (mScore.mValue >> ((7 - i) * 4)) & 0x0f;
-    score_text[i] = '0' + char(v);
+    text[i] = '0' + char(v);
   }
-  score_text[8] = '\0';
-  bm->DrawStringShadow(ENull, score_text, mFont16, SCORE_X, SCORE_Y, COLOR_TEXT, COLOR_TEXT_SHADOW, -1, -6);
+  text[8] = '\0';
+  bm->DrawStringShadow(ENull, text, mFont16, SCORE_X, SCORE_Y, COLOR_TEXT, COLOR_TEXT_SHADOW, -1, -6);
 
   for (TInt i   = 0; i < 8; i++) {
     TInt v = (mLives.mValue >> ((7 - i) * 4)) & 0x0f;
-    score_text[i] = '0' + char(v);
+    text[i] = '0' + char(v);
   }
-  score_text[8] = '\0';
-  bm->DrawStringShadow(ENull, &score_text[7], mFont16, LIVES_X, LIVES_Y, COLOR_TEXT, COLOR_TEXT_SHADOW, -1, -6);
+  text[8] = '\0';
+  bm->DrawStringShadow(ENull, &text[7], mFont16, LIVES_X, LIVES_Y, COLOR_TEXT, COLOR_TEXT_SHADOW, -1, -6);
 
   if (mLives.mValue <= 0) {
     bm->DrawStringShadow(ENull, "GAME OVER", mFont16, (320-9*16)/2, 120-8, COLOR_TEXT, COLOR_TEXT_SHADOW);
@@ -70,7 +91,6 @@ void GGameState::Death() {
   }
   if (mLives.mValue > 0) {
     mPaddleProcess->Reset();
-    AddProcess(new GBallProcess(this));
+    AddProcess(mBallProcess = new GBallProcess(this));
   }
 }
-

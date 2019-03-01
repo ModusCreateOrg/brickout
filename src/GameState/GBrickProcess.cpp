@@ -1,5 +1,7 @@
 #include "GBrickProcess.h"
 
+TInt GBrickProcess::mBrickCount = 0;
+
 GBrickProcess::GBrickProcess(GGameState *aGameState, TInt aX, TInt aY, TUint16 aImage) {
   mGameState = aGameState;
   mSprite = new BSprite(0, COMMON_SLOT, aImage, STYPE_ENEMY);
@@ -10,6 +12,7 @@ GBrickProcess::GBrickProcess(GGameState *aGameState, TInt aX, TInt aY, TUint16 a
   mSprite->w = 16;
   mSprite->h = 8;
   aGameState->AddSprite(mSprite);
+  mBrickCount++;
 }
 
 GBrickProcess::~GBrickProcess() {
@@ -30,6 +33,12 @@ TBool GBrickProcess::RunAfter() {
     mSprite->Remove();
     delete mSprite;
     mSprite = ENull;
+    mBrickCount--;
+    if (mBrickCount <= 0) {
+      TBCD one(1);
+      mGameState->mLevel.Add(one);
+      mGameState->Reset();
+    }
     return EFalse;
   }
   return ETrue;

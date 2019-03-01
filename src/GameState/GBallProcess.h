@@ -13,6 +13,9 @@ public:
 public:
   // reposition the ball at start of round
   void Reset(TFloat aVelocity);
+  void Reset() {
+    Reset(mVelocity);
+  }
 private:
   BSprite *mSprite;
   TFloat mVelocity;

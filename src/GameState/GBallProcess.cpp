@@ -9,18 +9,25 @@ public:
                              TUint32 aType = STYPE_DEFAULT) : BSprite(aPri, bm, img, aType){
   }
   void Collide(BSprite *aOther) {
-    cType |= aOther->type;
     if (aOther->type == STYPE_PLAYER) {
       if (y < aOther->y+vy ) {
         vx = (x - aOther->x -16)/4;
         y = aOther->y - 4;
+        cType |= aOther->type;
       }
     }
     else if (aOther->type == STYPE_ENEMY) {
       // collide with block
+      cType |= aOther->type;
       if (vy < 0) {
-        y = aOther->y + aOther->h;
+        y = aOther->y + aOther->h - vy;
       }
+      else {
+        y = aOther->y + vy;
+      }
+    }
+    else {
+      cType |= aOther->type;
     }
   };
 };
