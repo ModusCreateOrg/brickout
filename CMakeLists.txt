@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.12)
-project(genus)
+project(brickout)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-implicit-exception-spec-mismatch")
@@ -81,21 +81,21 @@ file(
         ${CREATIVE_ENGINE_PATH}/src/libxmp/*.c
 )
 
-# gather Genus sources
-file(GLOB_RECURSE GENUS_SRC RELATIVE ${CMAKE_SOURCE_DIR} "src/*.cpp")
+# gather Brickout sources
+file(GLOB_RECURSE BRICKOUT_SRC RELATIVE ${CMAKE_SOURCE_DIR} "src/*.cpp")
 
 add_executable(
-    genus
+    brickout
     Resources.bin
     ${LIBXMP_SRC}
     ${CREATIVE_ENGINE}
-    ${GENUS_SRC}
-        src/main.cpp src/GGame.cpp src/GGame.h src/Game.h src/GResources.h src/TitleState/GTitleState.cpp src/TitleState/GTitleState.h src/TitleState/GTitlePlayfield.cpp src/TitleState/GTitlePlayfield.h src/TitleState/GTitleProcess.cpp src/TitleState/GTitleProcess.h src/GameState/GGamePlayfield.cpp src/GameState/GGamePlayfield.h src/GameState/GGameState.cpp src/GameState/GGameState.h src/GameState/GPaddleProcess.cpp src/GameState/GPaddleProcess.h src/GameState/GBallProcess.cpp src/GameState/GBallProcess.h src/GameState/GBlockProcess.cpp src/GameState/GBlockProcess.h)
+    ${BRICKOUT_SRC}
+)
 
-# make genus.app
+# make brickout.app
 if (APPLE)
-    SET_TARGET_PROPERTIES(genus PROPERTIES MACOSX_BUNDLE TRUE)
-    INSTALL(TARGETS genus DESTINATION ".")
+    SET_TARGET_PROPERTIES(brickout PROPERTIES MACOSX_BUNDLE TRUE)
+    INSTALL(TARGETS brickout DESTINATION ".")
 endif (APPLE)
 
 TARGET_LINK_LIBRARIES(${PROJECT_NAME} -L/usr/local/lib ${SDL2_LIBRARIES} ${SDL2IMAGE_LIBRARIES})
