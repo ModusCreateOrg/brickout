@@ -3,7 +3,7 @@
 #include "GGamePlayfield.h"
 #include "GPaddleProcess.h"
 #include "GBallProcess.h"
-#include "GBlockProcess.h"
+#include "GBrickProcess.h"
 
 const TInt SCORE_X = 120;
 const TInt SCORE_Y = 2;
@@ -23,7 +23,7 @@ GGameState::GGameState() : BGameEngine(gViewPort) {
   AddProcess(new GBallProcess(this));
   for (TUint16 row = 0; row < 11; row++) {
     for (TUint16 col = 0; col < 20; col++) {
-      AddProcess(new GBlockProcess(this, col * 16, 24 + row * 8, TUint16((row % 5) + 0)));
+      AddProcess(new GBrickProcess(this, col * 16, 24 + row * 8, TUint16((row % 5) + 0)));
     }
   }
   mScore.mValue = 0;

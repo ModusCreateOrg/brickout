@@ -1,6 +1,6 @@
-#include "GBlockProcess.h"
+#include "GBrickProcess.h"
 
-GBlockProcess::GBlockProcess(GGameState *aGameState, TInt aX, TInt aY, TUint16 aImage) {
+GBrickProcess::GBrickProcess(GGameState *aGameState, TInt aX, TInt aY, TUint16 aImage) {
   mGameState = aGameState;
   mSprite = new BSprite(0, COMMON_SLOT, aImage, STYPE_ENEMY);
   mSprite->x = aX;
@@ -12,18 +12,18 @@ GBlockProcess::GBlockProcess(GGameState *aGameState, TInt aX, TInt aY, TUint16 a
   aGameState->AddSprite(mSprite);
 }
 
-GBlockProcess::~GBlockProcess() {
+GBrickProcess::~GBrickProcess() {
   if (mSprite) {
     mSprite->Remove();
     delete mSprite;
   }
 }
 
-TBool GBlockProcess::RunBefore() {
+TBool GBrickProcess::RunBefore() {
   return ETrue;
 }
 
-TBool GBlockProcess::RunAfter() {
+TBool GBrickProcess::RunAfter() {
   if (mSprite->cType) {
     TBCD points(1);
     mGameState->mScore.Add(points);

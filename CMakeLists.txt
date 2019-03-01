@@ -90,7 +90,7 @@ add_executable(
     ${LIBXMP_SRC}
     ${CREATIVE_ENGINE}
     ${GENUS_SRC}
-        src/main.cpp src/GGame.cpp src/GGame.h src/Game.h src/GResources.h src/TitleState/GTitleState.cpp src/TitleState/GTitleState.h src/TitleState/GTitlePlayfield.cpp src/TitleState/GTitlePlayfield.h src/TitleState/GTitleProcess.cpp src/TitleState/GTitleProcess.h src/GameState/GGamePlayfield.cpp src/GameState/GGamePlayfield.h src/GameState/GGameState.cpp src/GameState/GGameState.h src/GameState/GPaddleProcess.cpp src/GameState/GPaddleProcess.h src/GameState/GBallProcess.cpp src/GameState/GBallProcess.h src/GameState/GBlockProcess.cpp src/GameState/GBlockProcess.h)
+        src/main.cpp src/GGame.cpp src/GGame.h src/Game.h src/GResources.h src/TitleState/GTitleState.cpp src/TitleState/GTitleState.h src/TitleState/GTitlePlayfield.cpp src/TitleState/GTitlePlayfield.h src/TitleState/GTitleProcess.cpp src/TitleState/GTitleProcess.h src/GameState/GGamePlayfield.cpp src/GameState/GGamePlayfield.h src/GameState/GGameState.cpp src/GameState/GGameState.h src/GameState/GPaddleProcess.cpp src/GameState/GPaddleProcess.h src/GameState/GBallProcess.cpp src/GameState/GBallProcess.h src/GameState/GBrickProcess.cpp src/GameState/GBrickProcess.h)
 
 # make genus.app
 if (APPLE)

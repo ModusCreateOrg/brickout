@@ -11,7 +11,16 @@ public:
   void Collide(BSprite *aOther) {
     cType |= aOther->type;
     if (aOther->type == STYPE_PLAYER) {
-      vx = (x - aOther->x -16)/4;
+      if (y < aOther->y+vy ) {
+        vx = (x - aOther->x -16)/4;
+        y = aOther->y - 4;
+      }
+    }
+    else if (aOther->type == STYPE_ENEMY) {
+      // collide with block
+      if (vy < 0) {
+        y = aOther->y + aOther->h;
+      }
     }
   };
 };
@@ -65,7 +74,6 @@ TBool GBallProcess::RunBefore() {
 
 TBool GBallProcess::RunAfter() {
   if (mSprite->cType & STYPE_PLAYER) {
-    mSprite->y -= 4;
     mSprite->vy = -mSprite->vy;
     mSprite->cType &= ~STYPE_PLAYER;
   }
