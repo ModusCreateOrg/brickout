@@ -9,9 +9,25 @@ public:
                              TUint32 aType = STYPE_DEFAULT) : BSprite(aPri, bm, img, aType){
   }
   void Collide(BSprite *aOther) {
-    cType |= aOther->type;
     if (aOther->type == STYPE_PLAYER) {
-      vx = (x - aOther->x -16)/4;
+      if (y < aOther->y+vy ) {
+        vx = (x - aOther->x -16)/4;
+        y = aOther->y - 4;
+        cType |= aOther->type;
+      }
+    }
+    else if (aOther->type == STYPE_ENEMY) {
+      // collide with block
+      cType |= aOther->type;
+      if (vy < 0) {
+        y = aOther->y + aOther->h - vy;
+      }
+      else {
+        y = aOther->y + vy;
+      }
+    }
+    else {
+      cType |= aOther->type;
     }
   };
 };
@@ -65,7 +81,6 @@ TBool GBallProcess::RunBefore() {
 
 TBool GBallProcess::RunAfter() {
   if (mSprite->cType & STYPE_PLAYER) {
-    mSprite->y -= 4;
     mSprite->vy = -mSprite->vy;
     mSprite->cType &= ~STYPE_PLAYER;
   }

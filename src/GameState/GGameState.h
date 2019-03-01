@@ -4,6 +4,7 @@
 #include "Game.h"
 
 class GPaddleProcess;
+class GBallProcess;
 
 class GGameState : public BGameEngine {
 public:
@@ -11,6 +12,7 @@ public:
   ~GGameState();
   void PostRender();
 public:
+  void Reset();
   void Death();
 private:
   BFont *mFont8, *mFont16;
@@ -18,7 +20,8 @@ private:
 public:
   TBCD mScore;
   TBCD mLives;
+  TBCD mLevel;
+  GBallProcess *mBallProcess;
 };
-
 
 #endif //GENUS_GGAMESTATE_H
