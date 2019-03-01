@@ -41,6 +41,7 @@ void GGameState::Reset() {
   if (mBallProcess) {
     mBallProcess->Reset();
   }
+  GBrickProcess::mBrickCount = 0;
   for (TUint16 row = 0; row < 11; row++) {
     for (TUint16 col = 0; col < 20; col++) {
       AddProcess(new GBrickProcess(this, col * 16, 24 + row * 8, TUint16((row % 5) + 0)));

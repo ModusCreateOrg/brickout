@@ -15,6 +15,7 @@ public:
 protected:
   BSprite *mSprite;
   GGameState *mGameState;
+public:
   static TInt mBrickCount;
 };
 
