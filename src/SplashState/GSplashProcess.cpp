@@ -21,28 +21,28 @@ TBool GSplashProcess::RunBefore() {
 }
 
 TBool GSplashProcess::FadeInState() {
-  mColor += (255 / 30);
-  if (mColor > 255) {
-    mColor = 255;
-  }
-  gDisplay.SetColor(COLOR_TEXT, mColor, mColor, mColor);
-  if (mColor == 255) {
-    mState = STATE_WAIT;
-    mTimer = 2 * 30;
-  }
+//  mColor += (255 / 30);
+//  if (mColor > 255) {
+//    mColor = 255;
+//  }
+//  gDisplay.SetColor(COLOR_TEXT, mColor, mColor, mColor);
+//  if (mColor == 255) {
+//    mState = STATE_WAIT;
+//    mTimer = 2 * 30;
+//  }
   return ETrue;
 }
 
 TBool GSplashProcess::FadeOutState() {
-  mColor -= (255 / 30);
-  if (mColor < 0) {
-    mColor = 0;
-  }
-  gDisplay.SetColor(COLOR_TEXT, mColor, mColor, mColor);
-  if (mColor == 0) {
-    mState       = STATE_FADEIN;
-    mCurrentText = mCurrentText == splash_message1 ? splash_message2 : splash_message1;
-  }
+//  mColor -= (255 / 30);
+//  if (mColor < 0) {
+//    mColor = 0;
+//  }
+//  gDisplay.SetColor(COLOR_TEXT, mColor, mColor, mColor);
+//  if (mColor == 0) {
+//    mState       = STATE_FADEIN;
+//    mCurrentText = mCurrentText == splash_message1 ? splash_message2 : splash_message1;
+//  }
   return ETrue;
 }
 
