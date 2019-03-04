@@ -62,21 +62,21 @@ void GGameState::PostRender() {
   }
   text[8] = '\0';
   text[5] = 'L';
-  bm->DrawStringShadow(ENull, &text[5], mFont16, LEVEL_X, LEVEL_Y, COLOR_TEXT, COLOR_TEXT_SHADOW, -1, -6);
+  bm->DrawString(ENull, &text[5], mFont16, LEVEL_X, LEVEL_Y, COLOR_TEXT, -1, -6);
 
   for (TInt i   = 0; i < 8; i++) {
     TInt v = (mScore.mValue >> ((7 - i) * 4)) & 0x0f;
     text[i] = '0' + char(v);
   }
   text[8] = '\0';
-  bm->DrawStringShadow(ENull, text, mFont16, SCORE_X, SCORE_Y, COLOR_TEXT, COLOR_TEXT_SHADOW, -1, -6);
+  bm->DrawString(ENull, text, mFont16, SCORE_X, SCORE_Y, COLOR_TEXT, -1, -6);
 
   for (TInt i   = 0; i < 8; i++) {
     TInt v = (mLives.mValue >> ((7 - i) * 4)) & 0x0f;
     text[i] = '0' + char(v);
   }
   text[8] = '\0';
-  bm->DrawStringShadow(ENull, &text[7], mFont16, LIVES_X, LIVES_Y, COLOR_TEXT, COLOR_TEXT_SHADOW, -1, -6);
+  bm->DrawString(ENull, &text[7], mFont16, LIVES_X, LIVES_Y, COLOR_TEXT, -1, -6);
 
   if (mLives.mValue <= 0) {
     bm->DrawStringShadow(ENull, "GAME OVER", mFont16, (320-9*16)/2, 120-8, COLOR_TEXT, COLOR_TEXT_SHADOW);
