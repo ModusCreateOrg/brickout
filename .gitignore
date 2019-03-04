@@ -37,4 +37,4 @@ Resources.bin
 .idea
 build
 cmake-build-debug
-
+sdkconfig
