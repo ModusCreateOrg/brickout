@@ -13,7 +13,7 @@
 
 GSoundPlayer gSoundPlayer;
 
-#define MUSIC_VOLUME (0)
+#define MUSIC_VOLUME (.5)
 
 void GSoundPlayer::Init(TUint8 aNumberFxChannels, TUint8 aNumberFxSlots) {
   BSoundPlayer::Init(aNumberFxChannels, aNumberFxSlots);
@@ -108,6 +108,7 @@ void GSoundPlayer::SfxBounceOffPlayer() {
 
 
 void GSoundPlayer::SfxBounceWall() {
+  printf("SfxBounceWall\n");
   gSoundPlayer.PlaySfx(/*SFX_BOUNCE_WALL*/1);
 }
 

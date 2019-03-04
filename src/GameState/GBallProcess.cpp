@@ -58,6 +58,9 @@ void GBallProcess::Reset(TFloat aVelocity) {
   mSprite->vx = cos(angle) * aVelocity;
   mSprite->vy = sin(angle) * aVelocity;
   mSprite->flags |= SFLAG_RENDER;
+#ifdef ENABLE_AUDIO
+  gSoundPlayer.SfxNewBall();
+#endif
 }
 
 TBool GBallProcess::RunBefore() {
@@ -67,14 +70,25 @@ TBool GBallProcess::RunBefore() {
   if (newX < 0) {
     mSprite->x = 0;
     mSprite->vx = -mSprite->vx;
+#ifdef ENABLE_AUDIO
+    gSoundPlayer.SfxBounceWall();
+#endif
   }
+
   if (newX > (SCREEN_WIDTH - 4)) {
     mSprite->x = (SCREEN_WIDTH - 4);
     mSprite->vx = -mSprite->vx;
+#ifdef ENABLE_AUDIO
+    gSoundPlayer.SfxBounceWall();
+#endif
   }
+
   if (newY < 0) {
     mSprite->y = 0;
     mSprite->vy = -mSprite->vy;
+#ifdef ENABLE_AUDIO
+    gSoundPlayer.SfxBounceWall();
+#endif
   }
   return ETrue;
 }
@@ -83,10 +97,16 @@ TBool GBallProcess::RunAfter() {
   if (mSprite->cType & STYPE_PLAYER) {
     mSprite->vy = -mSprite->vy;
     mSprite->cType &= ~STYPE_PLAYER;
+#ifdef ENABLE_AUDIO
+    gSoundPlayer.SfxBounceOffPlayer();
+#endif
   }
   else if (mSprite->cType & STYPE_ENEMY) {
     mSprite->vy = -mSprite->vy;
     mSprite->cType &= ~STYPE_ENEMY;
+#ifdef ENABLE_AUDIO
+    gSoundPlayer.SfxKillBlock();
+#endif
   }
   if (mSprite->y > SCREEN_HEIGHT) {
     mGameState->Death();

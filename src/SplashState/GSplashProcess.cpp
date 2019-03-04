@@ -55,19 +55,19 @@ TBool GSplashProcess::WaitState() {
 }
 
 void GSplashProcess::RenderText() {
-  if (!mCurrentText) {
-    return;
-  }
-  TInt width = TInt(strlen(mCurrentText) * 12);
-  TInt x     = (320 - width) / 2;
-  gDisplay.renderBitmap->DrawString(ENull, mCurrentText, mFont, x, 200, COLOR_TEXT, -1, -4);
+//  if (!mCurrentText) {
+//    return;
+//  }
+//  TInt width = TInt(strlen(mCurrentText) * 12);
+//  TInt x     = (320 - width) / 2;
+//  gDisplay.renderBitmap->DrawString(ENull, mCurrentText, mFont, x, 200, COLOR_TEXT, -1, -4);
 }
 
 TBool GSplashProcess::RunAfter() {
   if (gControls.WasPressed(BUTTON_ANY)) { // } || --mTimer <= 0) {
     gGame->SetState(GAME_STATE_TITLE);
 #ifdef ENABLE_AUDIO
-    gSoundPlayer.SfxMenuAccept();
+    gSoundPlayer.SfxStartGame();
 #endif
     return EFalse;
   }
