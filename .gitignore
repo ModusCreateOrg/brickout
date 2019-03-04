@@ -33,6 +33,7 @@
 
 creative-engine
 Resources.h
+Resources.bin
 .idea
 build
 cmake-build-debug
