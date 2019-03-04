@@ -79,7 +79,7 @@ void GGameState::PostRender() {
   bm->DrawString(ENull, &text[7], mFont16, LIVES_X, LIVES_Y, COLOR_TEXT, -1, -6);
 
   if (mLives.mValue <= 0) {
-    bm->DrawStringShadow(ENull, "GAME OVER", mFont16, (320-9*16)/2, 120-8, COLOR_TEXT, COLOR_TEXT_SHADOW);
+    bm->DrawString(ENull, "GAME OVER", mFont16, (320-9*16)/2, 120-8, COLOR_TEXT);
     if (gControls.WasPressed(BUTTON_ANY)) {
       gGame->SetState(GAME_STATE_TITLE);
     }
