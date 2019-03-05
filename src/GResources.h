@@ -12,6 +12,34 @@ enum {
   FONT_16x16_SLOT
 };
 
+
+// BRaw slots
+enum {
+  SONG0_SLOT,
+  SONG1_SLOT,
+  SONG2_SLOT,
+  SONG3_SLOT,
+  SONG4_SLOT,
+  SONG5_SLOT,
+  SONG6_SLOT,
+  SONG7_SLOT,
+  SONG8_SLOT,
+  SONG9_SLOT,
+  SONG10_SLOT,
+  SONG11_SLOT,
+  SFX1_SLOT,
+  SFX2_SLOT,
+  SFX3_SLOT,
+  SFX4_SLOT,
+  SFX5_SLOT,
+  SFX6_SLOT,
+  SFX7_SLOT,
+  SFX8_SLOT,
+  SFX9_SLOT,
+  SFX10_SLOT,
+};
+
+
 static const TInt16 MAX_BBITMAP = SPLASH_BMP + 1;
 
 static const TUint16 IMG_DROP1 = 0;
@@ -21,7 +49,7 @@ static const TUint16 IMG_DROP4 = 16;
 static const TUint16 IMG_DROP5 = 24;
 static const TUint16 IMG_DROP6 = 32;
 
-static const TUint16 COLOR_TEXT        = 252;
+static const TUint16 COLOR_TEXT        = 263;
 static const TUint16 COLOR_TEXT_SHADOW = 263;
 
 static const TUint16 IMG_PADDLE = 0;

@@ -8,6 +8,9 @@ GTitleProcess::GTitleProcess() {
   mState       = STATE_FADEIN;
   mFont        = new BFont(gResourceManager.GetBitmap(FONT_16x16_SLOT), FONT_16x16);
   mCurrentText = title_message1;
+#ifdef ENABLE_AUDIO
+  gSoundPlayer.PlayMusic(INTRO_XM);
+#endif
 }
 
 GTitleProcess::~GTitleProcess() {
@@ -59,15 +62,15 @@ void GTitleProcess::RenderText() {
     return;
   }
   TInt width = TInt(strlen(mCurrentText) * 12);
-  TInt x     = (320 - width) / 2;
-  gDisplay.renderBitmap->DrawString(ENull, mCurrentText, mFont, x, 200, COLOR_TEXT, -1, -4);
+  TInt x     = ((320 - width) / 2) - 5;
+  gDisplay.renderBitmap->DrawString(ENull, mCurrentText, mFont, x, 160, COLOR_TEXT, -1, -4);
 }
 
 TBool GTitleProcess::RunAfter() {
   if (gControls.WasPressed(BUTTON_ANY)) { // } || --mTimer <= 0) {
     gGame->SetState(GAME_STATE_GAME);
 #ifdef ENABLE_AUDIO
-    gSoundPlayer.SfxMenuAccept();
+    gSoundPlayer.SfxNewBall();
 #endif
     return EFalse;
   }

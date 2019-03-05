@@ -21,28 +21,28 @@ TBool GSplashProcess::RunBefore() {
 }
 
 TBool GSplashProcess::FadeInState() {
-  mColor += (255 / 30);
-  if (mColor > 255) {
-    mColor = 255;
-  }
-  gDisplay.SetColor(COLOR_TEXT, mColor, mColor, mColor);
-  if (mColor == 255) {
-    mState = STATE_WAIT;
-    mTimer = 2 * 30;
-  }
+//  mColor += (255 / 30);
+//  if (mColor > 255) {
+//    mColor = 255;
+//  }
+//  gDisplay.SetColor(COLOR_TEXT, mColor, mColor, mColor);
+//  if (mColor == 255) {
+//    mState = STATE_WAIT;
+//    mTimer = 2 * 30;
+//  }
   return ETrue;
 }
 
 TBool GSplashProcess::FadeOutState() {
-  mColor -= (255 / 30);
-  if (mColor < 0) {
-    mColor = 0;
-  }
-  gDisplay.SetColor(COLOR_TEXT, mColor, mColor, mColor);
-  if (mColor == 0) {
-    mState       = STATE_FADEIN;
-    mCurrentText = mCurrentText == splash_message1 ? splash_message2 : splash_message1;
-  }
+//  mColor -= (255 / 30);
+//  if (mColor < 0) {
+//    mColor = 0;
+//  }
+//  gDisplay.SetColor(COLOR_TEXT, mColor, mColor, mColor);
+//  if (mColor == 0) {
+//    mState       = STATE_FADEIN;
+//    mCurrentText = mCurrentText == splash_message1 ? splash_message2 : splash_message1;
+//  }
   return ETrue;
 }
 
@@ -55,19 +55,19 @@ TBool GSplashProcess::WaitState() {
 }
 
 void GSplashProcess::RenderText() {
-  if (!mCurrentText) {
-    return;
-  }
-  TInt width = TInt(strlen(mCurrentText) * 12);
-  TInt x     = (320 - width) / 2;
-  gDisplay.renderBitmap->DrawString(ENull, mCurrentText, mFont, x, 200, COLOR_TEXT, -1, -4);
+//  if (!mCurrentText) {
+//    return;
+//  }
+//  TInt width = TInt(strlen(mCurrentText) * 12);
+//  TInt x     = (320 - width) / 2;
+//  gDisplay.renderBitmap->DrawString(ENull, mCurrentText, mFont, x, 200, COLOR_TEXT, -1, -4);
 }
 
 TBool GSplashProcess::RunAfter() {
   if (gControls.WasPressed(BUTTON_ANY)) { // } || --mTimer <= 0) {
     gGame->SetState(GAME_STATE_TITLE);
 #ifdef ENABLE_AUDIO
-    gSoundPlayer.SfxMenuAccept();
+    gSoundPlayer.SfxStartGame();
 #endif
     return EFalse;
   }
