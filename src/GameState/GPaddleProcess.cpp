@@ -7,7 +7,7 @@ GPaddleProcess::GPaddleProcess(GGameState *aGameState) {
   mSprite = new BSprite(0, PLAYER_SLOT, IMG_PADDLE, STYPE_PLAYER);
   mSprite->w = 32;
   mSprite->h = 9;
-  mSprite->flags |= SFLAG_RENDER;
+  mSprite->flags |= SFLAG_RENDER | SFLAG_CHECK;
   mSprite->cMask |= STYPE_EBULLET;
   Reset();
   mGameState->AddSprite(mSprite);
