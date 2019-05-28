@@ -13,7 +13,8 @@
 
 GSoundPlayer gSoundPlayer;
 
-#define MUSIC_VOLUME (.3)
+#define MUSIC_VOLUME (.15)
+#define SFX_VOLUME (.25)
 
 void GSoundPlayer::Init(TUint8 aNumberFxChannels, TUint8 aNumberFxSlots) {
   BSoundPlayer::Init(aNumberFxChannels, aNumberFxSlots);
@@ -21,7 +22,7 @@ void GSoundPlayer::Init(TUint8 aNumberFxChannels, TUint8 aNumberFxSlots) {
   mMaxSongs = 8;
   mSongSlots = (SongSlot *)AllocMem(sizeof(SongSlot) * mMaxSongs, MEMF_SLOW);
 
-  const uint16_t allSongs[] = {
+  const TUint16 allSongs[] = {
     EMPTYSONG_XM,
     INTRO_XM,
     STAGE_1_XM,
@@ -32,7 +33,7 @@ void GSoundPlayer::Init(TUint8 aNumberFxChannels, TUint8 aNumberFxSlots) {
     GAMEOVER_XM,
   };
 
-  for (uint8_t i = 0; i < mMaxSongs; i++) {
+  for (TUint8 i = 0; i < mMaxSongs; i++) {
     auto *slot = (SongSlot *)AllocMem(sizeof(SongSlot), MEMF_SLOW);
 
     slot->mResourceNumber = allSongs[i];
@@ -48,7 +49,7 @@ void GSoundPlayer::Init(TUint8 aNumberFxChannels, TUint8 aNumberFxSlots) {
 
   PlayMusic(EMPTYSONG_XM);
   SetMusicVolume(MUSIC_VOLUME);
-  SetEffectsVolume(.75);
+  SetEffectsVolume(SFX_VOLUME);
   MuteMusic(false);
 }
 
@@ -78,7 +79,7 @@ TBool GSoundPlayer::LoadSongSlot(TInt16 aResourceId) {
 
 TBool GSoundPlayer::LoadEffects() {
   // Load effects
-  const uint16_t mEffectsList[] = {
+  const TUint16 mEffectsList[] = {
     SFX_BOUNCE_OFF_PLAYER_WAV,
     SFX_BOUNCE_WALL_WAV,
     SFX_KILL_BLOCK_WAV,
@@ -86,12 +87,12 @@ TBool GSoundPlayer::LoadEffects() {
     SFX_NEW_BALL_WAV,
   };
 
-  for (uint8_t i = 0; i < 5; i++) {
+  for (TUint8 i = 0; i < 5; i++) {
     LoadEffect(mEffectsList[i], i);
   }
 
   SetMusicVolume(MUSIC_VOLUME);
-  SetEffectsVolume(.75);
+  SetEffectsVolume(SFX_VOLUME);
   return ETrue;
 }
 
