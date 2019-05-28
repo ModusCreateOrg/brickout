@@ -105,9 +105,18 @@ Brickout is tested on Raspbian Stretch (9.6) on the Raspberry Pi 2B+ and 3B+. Yo
 The game will run very slowly without enabling the OpenGL desktop driver. You can enable it by running `sudo raspbi-config` and choosing _Advanced Options / GL Driver / GL (Full KMS)_. The game will run very slowly without enabling the OpenGL desktop driver. You can enable it by running `sudo raspbi-config` and choosing _Advanced Options / GL Driver / GL (Full KMS)_. See this site for complete instructions:  [https://eltechs.com/how-to-enable-opengl-on-raspberry-pi/](https://eltechs.com/how-to-enable-opengl-on-raspberry-pi/).
 
 
-
 ## ODROID GO/ESP32
-- [ ] Follow the [setup-toolchain](https://docs.espressif.com/projects/esp-idf/en/stable/get-started/#setup-toolchain) instructions for the ESP IDF. Be sure to follow them thorougly! 
+- [ ] The following script replicates the steps to install the related ESP-IDF software. See the [setup-toolchain](https://docs.espressif.com/projects/esp-idf/en/stable/get-started/#setup-toolchain) instructions details.
+ 
+__Note:__ We've standardized on ESP-IDF version 3.2, and have deviated a bit from the install instructions.
+
+```
+# To install ESP-IDF, please execute the following command:
+# Assumes you don't have an esp directory in your profile directory
+bash scripts/download-esp-idf.sh
+
+```
+To proceed further, __make sure__ your [$IDF_PATH](https://docs.espressif.com/projects/esp-idf/en/latest/get-started/add-idf_path-to-profile.html#linux-and-macos) environment variable is set.
 - [ ] Stage the appropriate SDK config file
 ```
 # Linux ONLY
