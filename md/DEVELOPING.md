@@ -127,10 +127,10 @@ cp sdkconfig.mac sdkconfig
 - [ ] Build and run Brickout 
 ```
 # From within brickout/
-# *IF* you are prompted by the build system to say yes or no to any configura†ion changes, 
-# choose the default (press ENTER).
-make rcomp resources    # Build necessary tooling & resources binary
-make -j 4 flash         # Assuming you have four CPU cores to compile
+# Ensure your device is plugged in and powered on.
+
+make rcomp resources        # Build necessary tooling & resources binary
+make flash && make monitor  # Sit back, relax and enjoy the game.
 
 # *IF* you are prompted by the build system to say yes or no to any configura†ion changes, 
 # choose the default (press ENTER).
