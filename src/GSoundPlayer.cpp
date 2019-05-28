@@ -13,8 +13,8 @@
 
 GSoundPlayer gSoundPlayer;
 
-#define MUSIC_VOLUME (.15)
-#define SFX_VOLUME (.25)
+#define MUSIC_VOLUME (.20)
+#define SFX_VOLUME (.35)
 
 void GSoundPlayer::Init(TUint8 aNumberFxChannels, TUint8 aNumberFxSlots) {
   BSoundPlayer::Init(aNumberFxChannels, aNumberFxSlots);
