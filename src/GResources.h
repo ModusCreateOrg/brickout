@@ -49,7 +49,7 @@ static const TUint16 IMG_DROP4 = 16;
 static const TUint16 IMG_DROP5 = 24;
 static const TUint16 IMG_DROP6 = 32;
 
-static const TUint16 COLOR_TEXT        = 263;
+static const TUint8  COLOR_TEXT        = 7;
 static const TUint16 COLOR_TEXT_SHADOW = 263;
 
 static const TUint16 IMG_PADDLE = 0;
