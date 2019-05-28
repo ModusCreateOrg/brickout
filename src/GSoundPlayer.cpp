@@ -109,7 +109,6 @@ void GSoundPlayer::SfxBounceOffPlayer() {
 
 
 void GSoundPlayer::SfxBounceWall() {
-  printf("SfxBounceWall\n");
   gSoundPlayer.PlaySfx(/*SFX_BOUNCE_WALL*/1);
 }
 
