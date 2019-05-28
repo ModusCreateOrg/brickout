@@ -117,8 +117,18 @@ bash scripts/download-esp-idf.sh
 
 ```
 To proceed further, __make sure__ your [$IDF_PATH](https://docs.espressif.com/projects/esp-idf/en/latest/get-started/add-idf_path-to-profile.html#linux-and-macos) environment variable is set.
+
+Next, close & re-open your terminal.
+
+Last step is to execute the following command to update the IDF Python scripts. This will only work if your `$IDF_PATH` is properly set.
+
+```
+python -m pip install --user -r $IDF_PATH/requirements.txt
+```
+
 - [ ] Stage the appropriate SDK config file
 ```
+# from within brickout/
 # Linux ONLY
 cp sdkconfig.linux sdkconfig
 # macOS ONLY
