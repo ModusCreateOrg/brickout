@@ -1,6 +1,9 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.12)
 PROJECT(brickout)
 
+ADD_COMPILE_DEFINITIONS(CE_SDL2_WINDOW_TITLE="Brickout :: by Modus Create")
+
+
 SET(CMAKE_CXX_STANDARD 11)
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-implicit-exception-spec-mismatch")
 
